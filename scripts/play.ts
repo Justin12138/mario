@@ -36,19 +36,19 @@ class Player {
                 case keycode[0]:
                     if (keydown.indexOf(keycode.KeyA) == -1) {
                         keydown.unshift(keycode.KeyA)
-                        if(_this.turn){
-                            // _this.mario.turn()
-                            _this.turn = false
-                        }
+                        // if(_this.turn){
+                        //     // _this.mario.turn()
+                        //     _this.turn = false
+                        // }
                     }
                     break
                 case keycode[1]:
                     if (keydown.indexOf(keycode.KeyD) == -1) {
                         keydown.unshift(keycode.KeyD)
-                        if(!_this.turn){
-                            // _this.mario.turn()
-                            _this.turn = true
-                        }
+                        // if(!_this.turn){
+                        //     // _this.mario.turn()
+                        //     _this.turn = true
+                        // }
                     }
                     break
                 case keycode[2]:
@@ -72,20 +72,21 @@ class Player {
         }
         let count = 0
         setInterval(() => {
+
             if (keydown.length) {
                 if(this.mario_status == 0){
                     this.mario.run()
                     this.mario_status = 1
                 }
                 if(keydown[0] != this.mario_way){
-                    if(this.turn != Boolean(keydown[0])){
-                        this.mario.turn()
-                        this.turn = !this.turn
-                    }
-                    if(this.mvspeed - this.accl > 0){
+                    // if(this.turn != Boolean(keydown[0])){   
+                    //     this.mario.turn()
+                    //     this.turn = !this.turn
+                    // }
+                    if(this.mvspeed - this.accl * 2 > 0){   //当刹车时给予两倍的减速度
                         this.mario_status = 0
-                        this.mvspeed -= this.accl
-                    }else{
+                        this.mvspeed -= this.accl * 2
+                    }else{                                  /* 当惯性消失后再改变方向 */
                         this.mario_way = keydown[0]
                         _this.mario.turn()
                     }
@@ -93,7 +94,7 @@ class Player {
             } else {
                 this.mario_status = 0
             }
-            
+            //如在行进中给予加速度
             if (this.mario_status) {
                 if (this.mvspeed < this.maxspeed) {
                     this.mvspeed += this.accl
@@ -110,6 +111,7 @@ class Player {
                     }
                 }
             }
+            //根据惯性的方向设置x
             if (this.mario_way == 0) {
                 this.x >= this.mvspeed ? this.x -= this.mvspeed : this.x = 0
             } else {
@@ -124,14 +126,7 @@ class Player {
         this.mario.stand()
     }
     update(count: number) {
-        
-
-        
-
-        let animi = this.mario.animitions.stand
-        let animifps: number = Math.ceil(count / animi.fps) % animi.pos.length
         //马里奥对象
-
         this.canvas.clearRect(0, 0, this.canvas_w, this.canvas_h)
         this.canvas.drawImage(this.mario.object, this.x, this.y, this.mario_w, this.mario_h)
     }
