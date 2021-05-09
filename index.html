@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+</head>
+<style>
+    #canvas{
+        background-color: green;
+        width: 600px;
+        height: 300px;
+    }
+</style>
+<body >
+    <canvas id="canvas" width="600" height="300" ></canvas>
+    <!-- <img src="./mario.png"   width="200" height="200" alt="" srcset=""> -->
+    <img src="./assets/mario.png" style="display: none;" id="mario" onload="start()" alt="">
+    <script src="./js/scripts/play.js">
+    </script>
+    <script>
+        var game
+        function start(){
+            game = new Player("canvas")
+            game.start()
+        }
+
+        
+    </script>
+</body>
+</html>
