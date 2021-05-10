@@ -299,7 +299,5 @@ class mario {
         }
         runthis()
         this.inter = setInterval(runthis, 1000 / 60 * animi.fps)
-
-
     }
 }
